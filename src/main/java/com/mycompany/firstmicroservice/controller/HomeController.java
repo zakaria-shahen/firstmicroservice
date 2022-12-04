@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping
+    @GetMapping("/")
     public String get() {
+
         return "Hello, Microservice";
+
     }
+
 }
