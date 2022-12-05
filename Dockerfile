@@ -1,21 +1,21 @@
 FROM openjdk:20-ea-17-slim as build
 
 LABEL maintainer = "Zakaria Shahen <secret@gmail.com>"
-
+WORKDIR app
 ARG JAR_FILE
-ARG TARGET=target/dependency
+ARG TARGET=target/*
 
 COPY ${JAR_FILE} app.jar
 
-RUN mkdir -p ${TARGET} && (cd ${TARGET}; jar -xf /app.jar)
+RUN jave -Djarmode=layertools -jar app.jar extract
 
 FROM openjdk:20-ea-17-slim
 
 VOLUME /tmp
+WORKDIR app
+COPY --from=build application/dependencies/          ./
+COPY --from=build application/spring-boot-loader/    ./
+COPY --from=build application/snapshot-dependencies/ ./
+COPY --from=build application/application/           ./
 
-ARG DEPENDENCY=/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib     /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF         /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /ap
-
-ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.mycompany.firstmicroservice.FirstMicroserviceApplication"]
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

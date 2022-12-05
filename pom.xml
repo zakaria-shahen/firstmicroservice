@@ -76,7 +76,10 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<imageName>${docker.image.prefix}/${project.artifactId}:latest</imageName>
+					<imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
 				</configuration>
 			</plugin>
 			<plugin>
