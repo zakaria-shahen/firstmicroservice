@@ -9,13 +9,31 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATASOURCE_URL=jdbc:mysql://datasource:3306/first_microservice
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
+      - SPRING_APPLICATION_NAME=firstmicroservice
     depends_on:
+      - config-server
       - datasource
     restart: on-failure
     networks:
       backend:
         aliases:
             - "firstmicroservice"
+
+  config-server:
+    image: mycompany/firstspringconfigurationserver:0.0.1-SNAPSHOT
+    container_name: config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+      - SPRING_APPLICATION_NAME=config-server
+      - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH-LOCATIONS=classpath:/config
+    ports:
+      - "8071:8071"
+    networks:
+      backend:
+        aliases:
+            - "config-server"
+
 
   datasource:
     image: mysql
