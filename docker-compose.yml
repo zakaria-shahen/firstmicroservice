@@ -24,9 +24,10 @@ services:
     image: mycompany/firstspringconfigurationserver:0.0.1-SNAPSHOT
     container_name: config-server
     environment:
-      - SPRING_PROFILES_ACTIVE=native
+      - SPRING_PROFILES_ACTIVE=git
       - SPRING_APPLICATION_NAME=config-server
-      - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH-LOCATIONS=classpath:/config
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/zakaria-shahen/firstspringconfigurationserver
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCH-PATH=src/main/resources/config
     ports:
       - "8071:8071"
     networks:
