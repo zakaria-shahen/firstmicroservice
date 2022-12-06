@@ -20,3 +20,13 @@
    ```shell
       ./mvnw clean spring:build-image
    ```
+
+
+#### run service with docker-compose
+
+1. build config server image via [repo link](https://github.com/zakaria-shahen/firstspringconfigurationserver)
+2. run next command
+   ```shell
+      docker-compose up
+   ```
+  
