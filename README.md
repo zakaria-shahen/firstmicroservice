@@ -30,3 +30,6 @@
       docker-compose up
    ```
   
+#### refresh config link
+
+- POST [http://localhost:8080/refresh](http://localhost:8080/refresh)
