@@ -44,3 +44,7 @@
 #### refresh config link
 
 - POST [http://localhost:8080/refresh](http://localhost:8080/refresh)
+
+
+
+### NOTE: if run with Eureka client config in your localhost (pc) without docker and your host (pc) installed docker-desktop.. problem may occur.. [link](https://stackoverflow.com/a/63283687/15107127)
