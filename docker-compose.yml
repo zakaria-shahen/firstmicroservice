@@ -15,6 +15,7 @@ services:
     depends_on:
       - config-server
       - datasource
+      - eureka-server
     restart: on-failure
     networks:
       backend:
@@ -25,8 +26,9 @@ services:
     image: mycompany/firstspringconfigurationserver:0.0.1-SNAPSHOT
     container_name: config-server
     environment:
-      - SPRING_PROFILES_ACTIVE=git,vault
+      - SPRING_PROFILES_ACTIVE=native,git,vault
       - SPRING_APPLICATION_NAME=config-server
+      - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH-LOCATIONS=classpath:/config
       - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/zakaria-shahen/firstspringconfigurationserver
       - SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCH-PATH=src/main/resources/config
       - SPRING_CLOUD_CONFIG_SERVER_VAULT_HOST=vault
@@ -71,6 +73,25 @@ services:
       - "3306:3306"
     networks:
       - backend
+
+  eureka-server:
+    image: mycompany/firstspringeurekaserverdiscovery:0.0.1-SNAPSHOT
+    container_name: eureka_server_discovery
+    environment:
+      - SPRING_APPLICATION_NAME=firstspringeurekaserverdiscovery
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
+      - SPRING_CLOUD_CONFIG_TOKEN=myroot
+    ports:
+      - "8070:8070"
+    networks:
+      backend:
+        aliases:
+          - "eureka-server"
+    depends_on:
+      - config-server
+    restart: on-failure
+
 
 networks:
   backend:
