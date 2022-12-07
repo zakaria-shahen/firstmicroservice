@@ -29,7 +29,18 @@
    ```shell
       docker-compose up
    ```
-  
+3. vault config
+
+### Vault Config
+
+[//]: # (TODO: move to docker-compose - run script after runing vault)
+
+- run in vault container terminal
+  ```shell
+    vault login token=myroot
+    vault kv put secret/firstmicroservice  test.vault="Hello, Vault"
+  ```
+
 #### refresh config link
 
 - POST [http://localhost:8080/refresh](http://localhost:8080/refresh)

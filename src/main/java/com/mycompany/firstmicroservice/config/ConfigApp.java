@@ -13,5 +13,6 @@ import org.springframework.stereotype.Component;
 public class ConfigApp {
 
      private String props;
+     private String vault;
 
 }

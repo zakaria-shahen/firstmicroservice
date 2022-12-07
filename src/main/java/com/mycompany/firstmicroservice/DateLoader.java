@@ -24,6 +24,7 @@ public class DateLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         logger.info(configApp.getProps());
+        logger.info(configApp.getVault());
 
         licenseService.create(License.builder()
                         .licenseId("1dfd")
