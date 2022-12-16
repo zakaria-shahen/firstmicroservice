@@ -2,12 +2,10 @@ package com.mycompany.firstmicroservice.event.model;
 
 import lombok.*;
 
-// Note Should add getter and setter
 @AllArgsConstructor
 @Getter
 @Setter
-// @NoArgsConstructor
-// @ToString
+@ToString
 public class LicenseMessageEventModel {
 
     private String type = LicenseMessageEventModel.class.getTypeName();

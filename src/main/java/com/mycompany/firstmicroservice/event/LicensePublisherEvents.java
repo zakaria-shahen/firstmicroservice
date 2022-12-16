@@ -13,14 +13,18 @@ public class LicensePublisherEvents {
     @Bean
     public Supplier<LicenseMessageEventModel> createLicenseEvent() {
 
-        return () -> new LicenseMessageEventModel(
-                LicenseMessageEventModel.class.getTypeName(),
-                eventAction.CREATE.name(),
-                "1");
+        return () -> {
+            System.out.println("createLicenseEvent Bean: Scheduled message sent (every minute)");
+
+            return new LicenseMessageEventModel(
+                    LicenseMessageEventModel.class.getTypeName(),
+                    eventAction.CREATE.name(),
+                    "1");
+        };
 
     }
 
-    enum eventAction {
+    public enum eventAction {
         CREATE,
         UPDATE,
         DELETE
